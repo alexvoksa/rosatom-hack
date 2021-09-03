@@ -5,7 +5,7 @@ import aiosmtplib
 
 from fastapi import APIRouter
 
-from python_backend.email_sender import (
+from email_sender import (
     SendMail,
     MAIL_SERVER_HOST,
     MAIL_SERVER_SSL,
