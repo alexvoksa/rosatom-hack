@@ -1,0 +1,57 @@
+---
+version: "2.4"
+services:
+  hackathon_db:
+    build: database/
+    restart: always
+    volumes:
+      - type: bind
+        source: ./database/postgres
+        target: /var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:5432:5432"
+  hackathon_graphql-engine:
+    image: hasura/graphql-engine:v1.3.3
+    container_name: hackathon_hasura
+    ports:
+    - "127.0.0.1:8765:8080"
+    restart: always
+    healthcheck:
+      test: curl -sS http://0.0.0.0:8080/healthz || exit 1
+      timeout: 45s
+      interval: 10s
+      retries: 10
+    links:
+      - hackathon_db
+    depends_on:
+      - hackathon_db
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgres@hackathon_db:5432/hackathon
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
+      HASURA_GRAPHQL_DEV_MODE: "true"
+      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+      HASURA_GRAPHQL_ADMIN_SECRET: "qwerty"
+  hackathon_ms:
+    image: getmeili/meilisearch
+    container_name: hackathon_meilisearch
+    healthcheck:
+      test: curl -f http://0.0.0.0:7700/health  || exit 1
+      timeout: 45s
+      interval: 10s
+      retries: 10
+    restart: always
+    volumes:
+      - ./meilidata:/data.ms
+    depends_on:
+      - hackathon_db
+    environment:
+      MEILI_MASTER_KEY: "qwerty"
+      MEILI_NO_ANALYTICS: "true"
+      MEILI_LOG_LEVEL: "WARN"
+    expose:
+      - "7700"
+    ports:
+      - "127.0.0.1:7700:7700"
+volumes:
+  hackathon_ms:
+  hackathon_db:
