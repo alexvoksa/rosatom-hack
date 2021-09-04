@@ -1,0 +1,82 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>
+      Регистрация
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size-xs='12' size-lg='6' offset-lg='3'>
+        <h1>Создание профиля участника закупок в ЕИС</h1>
+          <form #authForm = "ngForm" (ngSubmit) = "onSubmit(authForm)" [formGroup]="profileForm">
+            <ion-card>
+              <ion-card-header style="padding-bottom: 0px;">
+                <ion-card-title>Сведения о юридическом лице</ion-card-title>
+              </ion-card-header>        
+              <ion-row>
+                <ion-col size-lg="10" offset-lg='1'>
+                  <ion-card-content style="padding-top: 0px;">
+                    <ion-item>
+                      <ion-label position="floating">Полное наименование</ion-label>
+                      <ion-input formControlName='orgName' type="text"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label position="floating">ОГРН</ion-label>
+                      <ion-input formControlName='ogrn' type="text"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label position="floating">ИНН юридического лица</ion-label>
+                      <ion-input formControlName='ULinn' type="text"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label position="floating">Адрес регистрации</ion-label>
+                      <ion-input formControlName='address' type="text"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label position="floating">Коды ОКВЭД, через запятую</ion-label>
+                      <ion-input formControlName='okved' type="text"></ion-input>
+                    </ion-item>
+                  </ion-card-content>
+                </ion-col>
+              </ion-row>
+            </ion-card>
+            <ion-card>
+              <ion-card-header style="padding-bottom: 0px;">
+                <ion-card-title>Информация о руководителе</ion-card-title>
+              </ion-card-header>        
+              <ion-row>
+                <ion-col size-lg="10" offset-lg='1'>
+                  <ion-card-content style="padding-top: 0px;">
+                    <ion-item>
+                      <ion-label position="floating">ФИО</ion-label>
+                      <ion-input formControlName='name' type="text"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label position="floating">ИНН физического лица</ion-label>
+                      <ion-input formControlName='FLinn' type="text"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label position="floating">Серия паспорта</ion-label>
+                      <ion-input formControlName='passportSeries' type="text"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label position="floating">Номер паспорта</ion-label>
+                      <ion-input formControlName='passportNumber' type="text"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label position="floating">СНИЛС</ion-label>
+                      <ion-input formControlName='snils' type="text"></ion-input>
+                    </ion-item>
+                  </ion-card-content>
+                </ion-col>
+              </ion-row>
+            </ion-card>
+            <ion-button expand = 'block' type = "submit">Зарегистрироваться</ion-button>
+          </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
