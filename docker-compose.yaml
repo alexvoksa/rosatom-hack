@@ -9,12 +9,12 @@ services:
         source: ./database/postgres
         target: /var/lib/postgresql/data
     ports:
-      - "127.0.0.1:5432:5432"
+      - "5432:5432"
   hackathon_graphql-engine:
     image: hasura/graphql-engine:v1.3.3
     container_name: hackathon_hasura
     ports:
-    - "127.0.0.1:8765:8080"
+      - "8765:8080"
     restart: always
     healthcheck:
       test: curl -sS http://0.0.0.0:8080/healthz || exit 1
@@ -51,7 +51,7 @@ services:
     expose:
       - "7700"
     ports:
-      - "127.0.0.1:7700:7700"
+      - "7700:7700"
   hackathon_python_backend:
     container_name: hackathon_python_backend
     build: python_backend/
@@ -71,3 +71,8 @@ services:
 volumes:
   hackathon_ms:
   hackathon_db:
+
+networks:
+  default:
+    external:
+      name: hosting_default

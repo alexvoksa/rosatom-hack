@@ -1,3 +1,5 @@
 .idea
 /venv/
 database/postgres
+meilidata/index_uuids
+meilidata/updates
