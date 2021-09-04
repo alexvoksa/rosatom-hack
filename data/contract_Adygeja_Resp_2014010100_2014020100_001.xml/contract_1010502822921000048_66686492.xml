@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:export xmlns="http://zakupki.gov.ru/oos/types/1" xmlns:ns6="http://zakupki.gov.ru/oos/KOTypes/1" xmlns:ns5="http://zakupki.gov.ru/oos/TPtypes/1" xmlns:ns8="http://zakupki.gov.ru/oos/pprf615types/1" xmlns:ns7="http://zakupki.gov.ru/oos/CPtypes/1" xmlns:ns9="http://zakupki.gov.ru/oos/EPtypes/1" xmlns:ns12="http://zakupki.gov.ru/oos/control99/1" xmlns:ns11="http://zakupki.gov.ru/oos/printform/1" xmlns:ns10="http://zakupki.gov.ru/oos/SMTypes/1" xmlns:ns2="http://zakupki.gov.ru/oos/export/1" xmlns:ns4="http://zakupki.gov.ru/oos/base/1" xmlns:ns3="http://zakupki.gov.ru/oos/common/1">
+    <ns2:contract schemeVersion="11.2">
+        <id>66686492</id>
+        <placementDate>2021-07-15T13:34:06</placementDate>
+        <publishDate>2021-07-15T13:34:06.844+03:00</publishDate>
+        <versionNumber>0</versionNumber>
+        <foundation>
+            <fcsOrder>
+                <order>
+                    <notificationNumber>0176100004321000032</notificationNumber>
+                    <lotNumber>1</lotNumber>
+                    <placing>12011</placing>
+                    <singleCustomer>
+                        <reason>
+                            <code>20270</code>
+                            <name>Закупка вследствие признания несостоявшимся электронного аукциона в соответствии с частями 1 - 3.1 статьи 71 Федерального закона</name>
+                        </reason>
+                    </singleCustomer>
+                    <purchaseCode>211010502822901050100100320012720244</purchaseCode>
+                    <contractProjectNumber>01761000043210000320001</contractProjectNumber>
+                    <tenderPlan2020Info>
+                        <ns3:plan2020Number>202101761000043001</ns3:plan2020Number>
+                        <ns3:position2020Number>202101761000043001000052</ns3:position2020Number>
+                    </tenderPlan2020Info>
+                </order>
+            </fcsOrder>
+        </foundation>
+        <conclusionContractSt95Ch17.1>false</conclusionContractSt95Ch17.1>
+        <customer>
+            <regNum>01761000043</regNum>
+            <consRegistryNum>00148822</consRegistryNum>
+            <fullName>УПРАВЛЕНИЕ СУДЕБНОГО ДЕПАРТАМЕНТА В РЕСПУБЛИКЕ АДЫГЕЯ</fullName>
+            <shortName>УСД В РЕСПУБЛИКЕ АДЫГЕЯ</shortName>
+            <registrationDate>1998-07-22</registrationDate>
+            <inn>0105028229</inn>
+            <kpp>010501001</kpp>
+            <legalForm>
+                <code>75104</code>
+                <singularName>Федеральное государственное казенное учреждение</singularName>
+            </legalForm>
+            <OKPO>46010280</OKPO>
+            <customerCode>10105028229010501001</customerCode>
+        </customer>
+        <placer>
+            <responsibleOrg>
+                <regNum>01761000043</regNum>
+                <consRegistryNum>00148822</consRegistryNum>
+                <fullName>УПРАВЛЕНИЕ СУДЕБНОГО ДЕПАРТАМЕНТА В РЕСПУБЛИКЕ АДЫГЕЯ</fullName>
+            </responsibleOrg>
+            <responsibleRole>CU</responsibleRole>
+        </placer>
+        <finances>
+            <budgetFunds>
+                <budget>
+                    <code>99010001</code>
+                    <name>Федеральный бюджет</name>
+                </budget>
+                <OKTMO>
+                    <code>79000000</code>
+                    <name>Муниципальные образования Республики Адыгеи (Адыгеи)</name>
+                </OKTMO>
+                <budgetLevel>10</budgetLevel>
+                <stages>
+                    <guid>21DA5B19FC7E4297BECEB263F45453D0</guid>
+                    <startDate>2021-07-14</startDate>
+                    <sid>70999979</sid>
+                    <endDate>2021-08-20</endDate>
+                    <payments>
+                        <KBK2016>43801059090090019244</KBK2016>
+                        <paymentMonth>7</paymentMonth>
+                        <paymentYear>2021</paymentYear>
+                        <paymentSum>43316.60</paymentSum>
+                        <paymentSumRUR>43316.60</paymentSumRUR>
+                    </payments>
+                </stages>
+            </budgetFunds>
+        </finances>
+        <protocolDate>2021-06-29</protocolDate>
+        <documentBase> Протокол рассмотрения единственной заявки на участие в электронном аукционе № 0176100004321000032-1 от 29.06.2021</documentBase>
+        <documentCode>120111</documentCode>
+        <signDate>2021-07-14</signDate>
+        <regNum>1010502822921000048</regNum>
+        <number>66-ЭА</number>
+        <contractSubject>поставка зарядного устройства  и аккумуляторных батареек, не относящиеся к сфере ИКТ</contractSubject>
+        <isOptimyStart>true</isOptimyStart>
+        <bankSupportContractRequiredInfo/>
+        <priceInfo>
+            <price>43316.60</price>
+            <priceType>P</priceType>
+            <currency>
+                <code>RUB</code>
+                <name>Российский рубль</name>
+            </currency>
+            <currencyRate>
+                <rate>1</rate>
+                <raiting>1</raiting>
+            </currencyRate>
+            <priceRUR>43316.60</priceRUR>
+            <priceVAT>0.00</priceVAT>
+            <priceVATRUR>0.00</priceVATRUR>
+        </priceInfo>
+        <executionPeriod>
+            <startDate>2021-07-14</startDate>
+            <stages>
+                <sid>70999979</sid>
+                <guid>21DA5B19FC7E4297BECEB263F45453D0</guid>
+                <startDate>2021-07-14</startDate>
+                <endDate>2021-08-20</endDate>
+                <stagePrice>0.00</stagePrice>
+                <stagePriceRUR>0.00</stagePriceRUR>
+                <stageAdvancePaymentSum>
+                    <sumInPercents>0.0</sumInPercents>
+                    <priceValue>0.00</priceValue>
+                    <priceValueRUR>0.00</priceValueRUR>
+                </stageAdvancePaymentSum>
+            </stages>
+            <endDate>2021-08-20</endDate>
+        </executionPeriod>
+        <st14Info>
+            <NPAsInfo>
+                <NPAInfo>
+                    <ns4:code>15</ns4:code>
+                    <ns4:name>О мерах стимулирования производства радиоэлектронной продукции на территории Российской Федерации при осуществлении закупок товаров, работ, услуг для обеспечения государственных и муниципальных нужд, о внесении изменений в постановление Правительства Российской Федерации от 16 сентября 2016 г. N 925 и признании утратившими силу некоторых актов Правительства Российской Федерации</ns4:name>
+                    <ns4:shortName>N 878 от 10.07.2019
+</ns4:shortName>
+                </NPAInfo>
+                <requirementType>2</requirementType>
+                <requirementName>Ограничение допуска</requirementName>
+            </NPAsInfo>
+            <NPAsInfo>
+                <NPAInfo>
+                    <ns4:code>1</ns4:code>
+                    <ns4:name>Участникам, заявки или окончательные предложения которых содержат предложения о поставке товаров в соответствии с приказом Минфина России № 126н от 04.06.2018</ns4:name>
+                    <ns4:shortName>Приказ Минфина от 04.06.2018 № 126н</ns4:shortName>
+                </NPAInfo>
+                <requirementType>3</requirementType>
+                <requirementName>Условие допуска</requirementName>
+            </NPAsInfo>
+        </st14Info>
+        <products>
+            <product>
+                <sid>319427767</sid>
+                <guid>A5E5A04C81774E19B8EB85D39A19721B</guid>
+                <indexNum>1</indexNum>
+                <OKPD2>
+                    <code>27.20.23.190</code>
+                    <name>Батареи аккумуляторные прочие</name>
+                </OKPD2>
+                <name>поставка зарядного устройства и аккумуляторных батареек,  не относящиеся к сфере ИКТ</name>
+                <hierarchyType>ND</hierarchyType>
+                <type>PRODUCT</type>
+                <OKEI>
+                    <code>876</code>
+                    <nationalCode>УСЛ ЕД</nationalCode>
+                    <trueNationalCode>УСЛ ЕД</trueNationalCode>
+                    <fullName>Условная единица</fullName>
+                    <nationalName>усл. ед</nationalName>
+                </OKEI>
+                <price>43316.60000000000</price>
+                <priceRUR>43316.60000000000</priceRUR>
+                <quantity>1</quantity>
+                <sum>43316.60</sum>
+                <sumRUR>43316.60</sumRUR>
+                <VATRate>n</VATRate>
+                <originCountry>
+                    <countryCode>156</countryCode>
+                    <countryFullName>Китайская Народная Республика</countryFullName>
+                </originCountry>
+            </product>
+            <quantityUndefined>false</quantityUndefined>
+        </products>
+        <suppliersInfo>
+            <supplierInfo>
+                <legalEntityRF>
+                    <EGRULInfo>
+                        <OGRN>1060105016278</OGRN>
+                        <legalForm>
+                            <code>12300</code>
+                            <singularName>Общество с ограниченной ответственностью</singularName>
+                        </legalForm>
+                        <fullName>ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "АЛЬЯНС-ЮГ"</fullName>
+                        <shortName>ООО "АЛЬЯНС-ЮГ"</shortName>
+                        <firmName>ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "АЛЬЯНС-ЮГ"</firmName>
+                        <INN>0105049067</INN>
+                        <KPP>010501001</KPP>
+                        <registrationDate>2006-07-09</registrationDate>
+                        <address>385452, РЕСП АДЫГЕЯ 01, Г МАЙКОП, УЛ НИЗПОТАШНАЯ, 7, З</address>
+                    </EGRULInfo>
+                    <otherInfo>
+                        <status>30</status>
+                        <OKPO>95812887</OKPO>
+                        <OKTMO>
+                            <code>79000000</code>
+                            <name>Муниципальные образования Республики Адыгеи (Адыгеи)</name>
+                        </OKTMO>
+                        <contactEMail>alians_01@mail.ru</contactEMail>
+                        <contactPhone>7-8772-210117</contactPhone>
+                    </otherInfo>
+                </legalEntityRF>
+            </supplierInfo>
+        </suppliersInfo>
+        <href>https://zakupki.gov.ru/epz/contract/contractCard/common-info.html?reestrNumber=1010502822921000048</href>
+        <printForm>
+            <url>https://zakupki.gov.ru/epz/contract/printForm/view.html?contractInfoId=66686492</url>
+            <docRegNumber>10105028229210000480001</docRegNumber>
+        </printForm>
+        <scanDocuments>
+            <attachment>
+                <publishedContentId>C61F44D21EA7F247E0530F548D0A2325</publishedContentId>
+                <fileName>контракт провер.docx</fileName>
+                <docDescription>Контракт № 66-ЭА от 14.07.2021 09:27:32</docDescription>
+                <docRegNumber>10105028229210000480002</docRegNumber>
+                <url>https://zakupki.gov.ru/44fz/filestore/public/1.0/download/rpec/file.html?uid=C61F44D21EA7F247E0530F548D0A2325</url>
+                <cryptoSigns>
+                    <signature>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</signature>
+                    <signature>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</signature>
+                </cryptoSigns>
+            </attachment>
+        </scanDocuments>
+        <currentContractStage>E</currentContractStage>
+        <okpd2okved2>true</okpd2okved2>
+    </ns2:contract>
+</ns2:export>
