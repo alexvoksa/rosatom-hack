@@ -16,7 +16,7 @@ func main() {
 	hub, err := processor.NewHub(
 		"free",
 		"free",
-		"postgres://hackathon:hackathon@localhost:5432/postgres",
+		"postgres://hackathon:hackathon@localhost:5432/hackathon",
 	)
 	closerLocal.Add(hub.Close)
 	if err != nil {

@@ -22,7 +22,7 @@ type processor struct {
 	filesChannel                     chan *ftp.Entry
 	fileWorkers                      map[int]*fileProcessor
 	dbWorkers                        map[int]*postgresProcessor
-	dbChan                           chan *Tender
+	dbChan                           chan *XmlFile
 }
 
 func (p *processor) Process(directoryPath string, dateStart, dateStop time.Time) error {

@@ -30,7 +30,7 @@ func NewHub(FTPLogin, FTPPassword string, dbUrl string) (Processor, error) {
 		ftpClient:        serverConn,
 		wg:               &sync.WaitGroup{},
 		dbConn:           connPool,
-		dbChan:           make(chan *Tender),
+		dbChan:           make(chan *XmlFile),
 		filesChannel:     make(chan *ftp.Entry, 2),
 		ftpPassword:      FTPPassword,
 		ftpLogin:         FTPLogin,
