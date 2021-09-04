@@ -5,27 +5,36 @@ import (
 	"time"
 )
 
-type Tender struct {
-	XMLName  xml.Name `xml:"export"`
-	Contract Contract `xml:"contract"`
+type XmlFile struct {
+	XMLName xml.Name `xml:"export"`
+	Tender  Tender   `xml:"contract"`
 }
 
-type Contract struct {
-	ID          string    `xml:"id"`
-	RegNum      string    `xml:"regNum"`
-	Number      string    `xml:"number"`
-	PublishDate string    `xml:"publishDate"`
+type Tender struct {
+	ID          string `xml:"id"`
+	RegNumber   string `xml:"regNum"`
+	Number      string `xml:"number"`
+	PublishDate string `xml:"publishDate"`
+	PublishedAt time.Time
 	Customer    Customer  `xml:"customer"`
 	Products    Products  `xml:"products"`
 	Suppliers   Suppliers `xml:"suppliersInfo"`
 	Href        string    `xml:"href"`
+	PriceInfo   struct {
+		Price float64 `xml:"priceRUR"`
+		Taxes float64 `xml:"priceVATRUR"`
+	} `xml:"priceInfo"`
 }
 
 type Customer struct {
-	RegNumber string `xml:"regNum"`
-	FullName  string `xml:"fullName"`
-	INN       string `xml:"inn"`
-	KPP       string `xml:"kpp"`
+	RegNumber        string `xml:"regNum"`
+	FullName         string `xml:"fullName"`
+	INN              string `xml:"inn"`
+	KPP              string `xml:"kpp"`
+	RegistrationDate string `xml:"registrationDate"`
+	// заполняем после парсинга
+	RegisteredAt time.Time
+	OKPO         string `xml:"OKPO"`
 }
 
 type Products struct {
@@ -50,7 +59,7 @@ type Product struct {
 	Sum           float64 `xml:"sum"`
 	SumRUR        float64 `xml:"sumRUR"`
 	VATRate       string  `xml:"VATRate"`
-	vat           float64
+	VatRUR        float64
 }
 type OKPD struct {
 	Code string `xml:"code"`
@@ -62,7 +71,7 @@ type OKEI struct {
 	NationalCode     string `xml:"nationalCode"`
 	TrueNationalCode string `xml:"trueNationalCode"`
 	FullName         string `xml:"fullName"`
-	NationalName     string
+	NationalName     string `xml:"nationalName"`
 }
 
 type Supplier struct {
@@ -84,8 +93,8 @@ type EGRULInfo struct {
 	KPP              string    `xml:"KPP"`
 	RegistrationDate string    `xml:"registrationDate"`
 	// после анмаршаллинга заполнить это поле, чтобы не ловить ошибки во время анмаршалинга
-	registrationDate time.Time
-	Address          string `xml:"address"`
+	RegisteredAt time.Time
+	Address      string `xml:"address"`
 }
 
 type LegalForm struct {
@@ -93,15 +102,22 @@ type LegalForm struct {
 	SingularName string `xml:"singularName"`
 }
 
+type ContactInfo struct {
+	LastName   string `xml:"lastName"`
+	FirstName  string `xml:"firstName"`
+	MiddleName string `xml:"middleName"`
+}
+
 type OtherInfo struct {
-	Status       int64  `xml:"status"`
-	OKPO         int64  `xml:"OKPO"`
-	OKTMO        OKTMO  `xml:"OKTMO"`
-	ContactPhone string `xml:"contactPhone"`
-	ContactEmail string `xml:"contactEMail"`
+	Status       int64       `xml:"status"`
+	OKPO         string      `xml:"OKPO"`
+	OKTMO        OKTMO       `xml:"OKTMO"`
+	ContactPhone string      `xml:"contactPhone"`
+	ContactEmail string      `xml:"contactEMail"`
+	ContactInfo  ContactInfo `xml:"contactInfo"`
 }
 
 type OKTMO struct {
-	Code int64  `xml:"code"`
+	Code string `xml:"code"`
 	Name string `xml:"name"`
 }

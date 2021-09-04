@@ -16,21 +16,21 @@ import (
 	"github.com/jlaffaye/ftp"
 )
 
-const dateLayout = "2006-07-09"
+const dateLayout = "2006-07-21"
 
 type fileProcessor struct {
 	workerID  int
 	inputChan <-chan *ftp.Entry
 	client    *ftp.ServerConn
 	wg        *sync.WaitGroup
-	dbChannel chan<- *Tender
+	dbChannel chan<- *XmlFile
 }
 
 func (p *fileProcessor) startProcessing() {
 	var err error
 	var readCloser io.ReadCloser
 	var reader = bytes.NewReader(nil)
-	var tenderStruct Tender
+	var tenderStruct XmlFile
 
 	fmt.Println(p.client.CurrentDir())
 
@@ -82,7 +82,7 @@ func (p *fileProcessor) startProcessing() {
 				continue
 			}
 
-			fmt.Printf("sending tender %s for db update", tenderStruct.Contract.ID)
+			fmt.Printf("sending tender %s for db update", tenderStruct.Tender.ID)
 			p.dbChannel <- &tenderStruct
 
 		}
@@ -110,29 +110,31 @@ func readZipFile(zf *zip.File) ([]byte, error) {
 	return ioutil.ReadAll(f)
 }
 
-func unmarshalPlus(data []byte, message *Tender) error {
+func unmarshalPlus(data []byte, message *XmlFile) error {
 	err := xml.Unmarshal(data, &message)
 	if err != nil {
 		return err
 	}
 
-	for i := range message.Contract.Suppliers.Supplier {
-		sup := &message.Contract.Suppliers.Supplier[i]
-		sup.LegalEntity.EGRULInfo.registrationDate, err = time.Parse(dateLayout, sup.LegalEntity.EGRULInfo.RegistrationDate)
+	message.Tender.PublishedAt, _ = time.Parse(dateLayout, message.Tender.PublishDate)
+
+	for i := range message.Tender.Suppliers.Supplier {
+		sup := &message.Tender.Suppliers.Supplier[i]
+		sup.LegalEntity.EGRULInfo.RegisteredAt, err = time.Parse(dateLayout, sup.LegalEntity.EGRULInfo.RegistrationDate)
 		if err != nil {
 			log.Printf(
 				"failed to parse registration date for contract %v suplier %v, due to: %v",
-				message.Contract.ID,
+				message.Tender.ID,
 				sup.LegalEntity.EGRULInfo.ShortName,
 				err,
 			)
 		}
 	}
 
-	for i := range message.Contract.Products.Product {
-		product := &message.Contract.Products.Product[i]
+	for i := range message.Tender.Products.Product {
+		product := &message.Tender.Products.Product[i]
 		// если не смогли распарсить, то всё равно 0 будет
-		product.vat, _ = strconv.ParseFloat(product.VATRate, 10)
+		product.VatRUR, _ = strconv.ParseFloat(product.VATRate, 10)
 	}
 
 	return nil
