@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+      <ion-title>
+         Профиль
+      </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf = "profile">
+  <ion-grid>
+    <ion-row>
+      <ion-col size-lg="8" offset-lg="2">
+        <ion-row>
+          <ion-col size-lg="4">
+            <ion-card>
+              <ion-card-content>
+                <img src="../../../assets/images/user.png">
+                <ion-button (click) = 'logout()'  slot="end">Выйти</ion-button>
+                <ion-button  slot="end"><ion-icon name="cellular-outline"></ion-icon></ion-button>
+                <ion-button  slot="end"><ion-icon name="add-circle-outline"></ion-icon></ion-button>
+                <ion-button  slot="end">Действия</ion-button>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+          <ion-col size-lg="8">
+            <ion-card>
+              <ion-item>
+                <ion-label>{{profile.orgName}}</ion-label>
+              </ion-item>
+              <ion-card-content>
+               <ion-row>
+                 <ion-col  size-lg="4">
+                  ОГРН
+                 </ion-col>
+                 <ion-col style="color: black;" size-lg="6">
+                  {{profile.ogrn}}
+                 </ion-col>
+               </ion-row>
+               <ion-row>
+                <ion-col  size-lg="4">
+                 ИНН юридического лица
+                </ion-col>
+                <ion-col style="color: black;" size-lg="6">
+                 {{profile.ULinn}}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col  size-lg="4">
+                 Адрес
+                </ion-col>
+                <ion-col style="color: black;" size-lg="6">
+                 {{profile.address}}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col  size-lg="4">
+                 ФИО
+                </ion-col>
+                <ion-col style="color: black;" size-lg="6">
+                 {{profile.name}}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col  size-lg="4">
+                 ИНН Физического лица
+                </ion-col>
+                <ion-col style="color: black;" size-lg="6">
+                 {{profile.FLinn}}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col  size-lg="4">
+                 Коды ОКВЭД
+                </ion-col>
+                <ion-col style="color: black;" size-lg="6">
+                 {{profile.okved}}
+                </ion-col>
+              </ion-row>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

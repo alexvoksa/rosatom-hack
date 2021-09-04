@@ -52,6 +52,22 @@ services:
       - "7700"
     ports:
       - "127.0.0.1:7700:7700"
+  hackathon_python_backend:
+    container_name: hackathon_python_backend
+    build: python_backend/
+    env_file:
+      - python_backend/python_backend.env
+    ports:
+      - "9999:9999"
+  hackathon_frontend:
+    container_name: hackathon_frontend
+    build: frontend/
+    ports:
+      - "8100:8100"
+    links:
+      - hackathon_db
+      - hackathon_graphql-engine
+      - hackathon_ms
 volumes:
   hackathon_ms:
   hackathon_db:

@@ -1,0 +1,16 @@
+aiosmtplib==1.1.6
+asgiref==3.4.1
+click==8.0.1
+fastapi==0.68.1
+h11==0.12.0
+pydantic==1.8.2
+starlette==0.14.2
+typing-extensions==3.10.0.2
+uvicorn==0.14.0
+uvloop==0.16.0
+watchgod==0.7
+websockets==9.1
+python-dotenv==0.17.1
+yarl==1.6.3
+itsdangerous==1.1.0
+httpx==0.18.1

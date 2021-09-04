@@ -1,0 +1,42 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>
+      Авторизация
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size-xs="12" size-lg="8" offset-lg="2">
+        <form #authForm = "ngForm" (ngSubmit) = "onSubmit(authForm)">
+          <ion-item>
+            <ion-label position="floating">E-mail</ion-label>
+            <ion-input
+              type = "email"
+              id="email"
+              name = "email"
+              required
+              email
+              ngModel>
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Пароль</ion-label>
+            <ion-input 
+              id="password"
+              type="password"
+              ngModel
+              name="password"
+              required
+              minlength="6">
+            </ion-input>
+          </ion-item>
+          <ion-button expand = 'block' [disabled] = "!authForm.valid" type = "submit">{{isLoginMode ? 'Войти' : 'Зарегистрироваться'}}</ion-button>
+          <ion-button expand = 'block' (click) = "onSwitchMode()">Изменить режим</ion-button>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
