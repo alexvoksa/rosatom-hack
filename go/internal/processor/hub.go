@@ -57,12 +57,6 @@ func (p *processor) Process(directoryPath string, dateStart, dateStop time.Time)
 	return nil
 }
 
-func (p *processor) closeAllChannels() {
-	close(p.filesChannel)
-	close(p.dbChan)
-	p.dbConn.Close()
-}
-
 func (p *processor) initWorkers(directoryPath string) error {
 	for i := 0; i < p.numOfFileWorkers; i++ {
 		serverConn, err := connectToFTP(p.ftpLogin, p.ftpPassword)
@@ -108,6 +102,15 @@ func (p *processor) initWorkers(directoryPath string) error {
 	for i := 0; i < p.numOfDBWorkers; i++ {
 		go p.dbWorkers[i].startProcessing()
 	}
+
+	return nil
+}
+
+func (p *processor) Close() error {
+
+	close(p.filesChannel)
+	close(p.dbChan)
+	p.dbConn.Close()
 
 	return nil
 }

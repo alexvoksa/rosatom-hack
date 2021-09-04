@@ -1,7 +1,6 @@
 package processor
 
 import (
-	"context"
 	"fmt"
 	"sync"
 
@@ -17,7 +16,9 @@ type postgresProcessor struct {
 
 func (p *postgresProcessor) startProcessing() {
 	var err error
+	fmt.Println("waiting for tenders")
 	for tender := range p.inputChan {
+		fmt.Println("received tender for update", tender.Contract.ID)
 		err = p.updatePostgres(tender)
 		if err != nil {
 			fmt.Printf("dbWorker#%d failed to update tender %s: %v", p.workerID, tender.Contract.ID, err)
@@ -30,23 +31,25 @@ func (p *postgresProcessor) startProcessing() {
 
 func (p *postgresProcessor) updatePostgres(message *Tender) error {
 	var err error
-	err = p.updateSuppliers()
-	err = p.updateTenders()
-	err = p.updateCustomers()
+	err = p.updateSuppliers(message.Contract.Suppliers)
+	err = p.updateTenders(&message.Contract)
+	err = p.updateCustomers(&message.Contract.Customer)
 
 	return err
 }
 
-func (p *postgresProcessor) updateSuppliers() error {
+func (p *postgresProcessor) updateSuppliers(sup Suppliers) error {
+	fmt.Println("updating suppliers")
 	return nil
 }
 
-func (p *postgresProcessor) updateTenders() error {
-	p.postgresDB.Exec(context.Background(), "INSERT ")
+func (p *postgresProcessor) updateTenders(contract *Contract) error {
+	fmt.Println("updating tenders")
 
 	return nil
 }
 
-func (p *postgresProcessor) updateCustomers() error {
+func (p *postgresProcessor) updateCustomers(cust *Customer) error {
+	fmt.Println("updating customers")
 	return nil
 }

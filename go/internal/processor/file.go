@@ -54,7 +54,7 @@ func (p *fileProcessor) startProcessing() {
 			log.Fatal(err)
 		}
 
-		fmt.Println("file %s unzipped", entry.Name)
+		fmt.Printf("file %s unzipped\n", entry.Name)
 
 		// Read all the files from zip archive
 		for _, unzippedFile := range zipReader.File {

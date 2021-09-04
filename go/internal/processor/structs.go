@@ -11,7 +11,6 @@ type Tender struct {
 }
 
 type Contract struct {
-	//XMLName     xml.Name `xml:"contract"`
 	ID          string    `xml:"id"`
 	RegNum      string    `xml:"regNum"`
 	Number      string    `xml:"number"`
@@ -104,7 +103,7 @@ type OtherInfo struct {
 	OKPO         int64  `xml:"OKPO"`
 	OKTMO        OKTMO  `xml:"OKTMO"`
 	ContactPhone string `xml:"contactPhone"`
-	ContactEmail string `xml:"contactEmail"`
+	ContactEmail string `xml:"contactEMail"`
 }
 
 type OKTMO struct {

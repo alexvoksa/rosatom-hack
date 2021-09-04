@@ -2,6 +2,7 @@ package processor
 
 import (
 	"context"
+	"io"
 	"sync"
 	"time"
 
@@ -11,6 +12,7 @@ import (
 
 type Processor interface {
 	Process(inputFilePath string, dateStart, dateStop time.Time) error
+	io.Closer
 }
 
 func NewHub(FTPLogin, FTPPassword string, dbUrl string) (Processor, error) {
@@ -28,6 +30,7 @@ func NewHub(FTPLogin, FTPPassword string, dbUrl string) (Processor, error) {
 		ftpClient:        serverConn,
 		wg:               &sync.WaitGroup{},
 		dbConn:           connPool,
+		dbChan:           make(chan *Tender),
 		filesChannel:     make(chan *ftp.Entry, 2),
 		ftpPassword:      FTPPassword,
 		ftpLogin:         FTPLogin,
