@@ -16,15 +16,9 @@ type Contract struct {
 	Number      string    `xml:"number"`
 	PublishDate string    `xml:"publishDate"`
 	Customer    Customer  `xml:"customer"`
-	Currency    Currency  `xml:"currency"`
 	Products    Products  `xml:"products"`
 	Suppliers   Suppliers `xml:"suppliersInfo"`
 	Href        string    `xml:"href"`
-}
-
-type Currency struct {
-	Code string `xml:"code"`
-	Name string `xml:"name"`
 }
 
 type Customer struct {
@@ -56,6 +50,7 @@ type Product struct {
 	Sum           float64 `xml:"sum"`
 	SumRUR        float64 `xml:"sumRUR"`
 	VATRate       string  `xml:"VATRate"`
+	vat           float64
 }
 type OKPD struct {
 	Code string `xml:"code"`

@@ -8,6 +8,7 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -126,6 +127,12 @@ func unmarshalPlus(data []byte, message *Tender) error {
 				err,
 			)
 		}
+	}
+
+	for i := range message.Contract.Products.Product {
+		product := &message.Contract.Products.Product[i]
+		// если не смогли распарсить, то всё равно 0 будет
+		product.vat, _ = strconv.ParseFloat(product.VATRate, 10)
 	}
 
 	return nil
