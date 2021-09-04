@@ -59,6 +59,15 @@ services:
       - python_backend/python_backend.env
     ports:
       - "9999:9999"
+  hackathon_frontend:
+    container_name: hackathon_frontend
+    build: frontend/
+    ports:
+      - "8100:8100"
+    links:
+      - hackathon_db
+      - hackathon_graphql-engine
+      - hackathon_ms
 volumes:
   hackathon_ms:
   hackathon_db:
