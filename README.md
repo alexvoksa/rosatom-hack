@@ -11,4 +11,4 @@ docker-compose up --build -d
 
 Database structure
 
-![](./docs/rosatom.png)
+![](./docs/rosatom.svg)
