@@ -23,7 +23,7 @@ type fileProcessor struct {
 	inputChan <-chan *ftp.Entry
 	client    *ftp.ServerConn
 	wg        *sync.WaitGroup
-	dbChannel chan<- *XmlFile
+	dbChannel chan<- *Tender
 }
 
 func (p *fileProcessor) startProcessing() {
@@ -83,7 +83,7 @@ func (p *fileProcessor) startProcessing() {
 			}
 
 			fmt.Printf("sending tender %s for db update", tenderStruct.Tender.ID)
-			p.dbChannel <- &tenderStruct
+			p.dbChannel <- &tenderStruct.Tender
 
 		}
 	}

@@ -38,7 +38,7 @@ func TestRepo_UpsertTenders(t *testing.T) {
 
 }
 
-func TestRepo_UpsertProducts(t *testing.T) {
+func TestRepo_UpsertSuppliers(t *testing.T) {
 	db, err := pgx.Connect(context.Background(), "postgres://hackathon:hackathon@localhost:5432/hackathon")
 	if err != nil {
 		t.Fatal(err)
@@ -51,7 +51,7 @@ func TestRepo_UpsertProducts(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	err = r.UpsertTenders(&xmlFile.Tender)
+	err = r.UpsertSuppliers(&xmlFile.Tender.Suppliers, xmlFile.Tender.PriceInfo.Price)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -71,19 +71,6 @@ func readData(path string) (*processor.XmlFile, error) {
 	}
 
 	xmlFile.Tender.PublishedAt, _ = time.Parse(dateLayout, xmlFile.Tender.PublishDate)
-
-	//for i := range xmlFile.Tender.Suppliers.Supplier {
-	//	sup := &xmlFile.Tender.Suppliers.Supplier[i]
-	//	sup.LegalEntity.EGRULInfo.RegisteredAt, err = time.Parse(dateLayout, sup.LegalEntity.EGRULInfo.RegistrationDate)
-	//	if err != nil {
-	//		fmt.Printf(
-	//			"failed to parse registration date for contract %v suplier %v, due to: %v",
-	//			xmlFile.Tender.ID,
-	//			sup.LegalEntity.EGRULInfo.ShortName,
-	//			err,
-	//		)
-	//	}
-	//}
 
 	for i := range xmlFile.Tender.Products.Product {
 		product := &xmlFile.Tender.Products.Product[i]
