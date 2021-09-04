@@ -1,5 +1,12 @@
 export default (reqObj) => `
-query searchProviders {
-    
+query a {
+  products {
+    guid
+    okei_id
+    price
+    unit {
+      id
+    }
+  }
 }
 `
