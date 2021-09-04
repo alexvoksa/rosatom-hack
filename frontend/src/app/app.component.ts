@@ -10,28 +10,28 @@ export class AppComponent implements OnInit {
   public appPages = [
     { title: 'Профиль', url: 'profile', icon: 'person' },
     { title: 'Закупки', url: 'purchases', icon: 'newspaper' },
-    
+
   ];
   public labels = ['Андрей', 'Александр', 'Джордж', 'Димас', 'Андрей'];
 
   public showSideMenu = false;
   currentRoute: string;
 
-  constructor(private router: Router){}
+  constructor(private router: Router) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.router.events
       .pipe(filter(e => e instanceof NavigationEnd))
       .subscribe((e: NavigationEnd) => {
         this.currentRoute = e.url;
         console.log(this.currentRoute);
-        if(this.currentRoute === '/login' || this.currentRoute === '/' || this.currentRoute === '/edit-profile'){
+        if (this.currentRoute === '/login' || this.currentRoute === '/' || this.currentRoute === '/edit-profile') {
           this.showSideMenu = false;
         }
         else {
           this.showSideMenu = true;
-        }   
-    });
+        }
+      });
   }
 }
 
