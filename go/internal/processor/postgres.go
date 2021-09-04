@@ -9,7 +9,7 @@ import (
 
 type postgresProcessor struct {
 	workerID   int
-	inputChan  <-chan *XmlFile
+	inputChan  <-chan *Tender
 	wg         *sync.WaitGroup
 	postgresDB *pgxpool.Conn
 }
@@ -18,10 +18,10 @@ func (p *postgresProcessor) startProcessing() {
 	var err error
 	fmt.Println("waiting for tenders")
 	for tender := range p.inputChan {
-		fmt.Println("received tender for update", tender.Tender.ID)
+		fmt.Println("received tender for update", tender.ID)
 		err = p.updatePostgres(tender)
 		if err != nil {
-			fmt.Printf("dbWorker#%d failed to update tender %s: %v", p.workerID, tender.Tender.ID, err)
+			fmt.Printf("dbWorker#%d failed to update tender %s: %v", p.workerID, tender.ID, err)
 			continue
 		}
 	}
@@ -29,11 +29,11 @@ func (p *postgresProcessor) startProcessing() {
 	p.wg.Done()
 }
 
-func (p *postgresProcessor) updatePostgres(message *XmlFile) error {
+func (p *postgresProcessor) updatePostgres(message *Tender) error {
 	var err error
-	err = p.updateSuppliers(message.Tender.Suppliers)
-	err = p.updateTenders(&message.Tender)
-	err = p.updateCustomers(&message.Tender.Customer)
+	err = p.updateSuppliers(message.Suppliers)
+	err = p.updateTenders(message)
+	err = p.updateCustomers(&message.Customer)
 
 	return err
 }

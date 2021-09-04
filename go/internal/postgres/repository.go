@@ -11,6 +11,13 @@ import (
 	"github.com/alexvoksa/rosatom-hack/go/internal/processor"
 )
 
+type Repository interface {
+	UpsertProducts(new *processor.Product) error
+	UpsertCustomers(new *processor.Customer, orderAmount float64) error
+	UpsertSuppliers(new *processor.Suppliers, orderPrice float64) error
+	UpsertTenders(new *processor.Tender) error
+}
+
 var _ Repository = &repo{}
 
 type repo struct {
@@ -97,49 +104,53 @@ DO UPDATE SET
 successfull_tenders = suppliers.successfull_tenders + ?,
 unsuccessfull_tenders = suppliers.unsuccessfull_tenders + ?;`
 
-func (r *repo) UpsertSuppliers(new *processor.Suppliers) error {
-	//	sqlBuilder := strings.Builder{}
-	//	sqlBuilder.WriteString(`INSERT INTO suppliers
-	//(ogrn, name, short_name, email,phone, address, inn, kpp, registered_at, reg_num, classification,
-	//description, reputation, sold_amount, successful_tenders, unsuccessful_tenders, is_innovate)
-	//values `)
-	//
-	//	for i := range new.Supplier {
-	//
-	//
-	//	}
-	//
-	//
-	//
-	//
-	//	resp, err := r.db.Exec(context.Background(), upsertSuppliersStmt,
-	//		new., new.RegNumber, new.PriceInfo.Price, new.PublishedAt, new.Href)
-	//	if err != nil {
-	//		return err
-	//	}
-	//
-	//	if resp.RowsAffected() != 1 {
-	//		r.logger.Warnf("for tender %s affected row is: %d", new.RegNumber, resp.RowsAffected())
-	//	}
-	//
-	//	sqlBuilder = strings.Builder{}
-	//	sqlBuilder.WriteString(fmt.Sprintf("INSERT INTO tender_products (tender_id, products_id) VALUES "))
-	//	for i := range new.Products.Product {
-	//		product := &new.Products.Product[i]
-	//		sqlBuilder.WriteString(fmt.Sprintf("(%s, %s)", new.ID, product.GUID))
-	//		if i != len(new.Products.Product)-1 {
-	//			sqlBuilder.WriteString(", ")
-	//		}
-	//	}
-	//
-	//	sqlBuilder.WriteString(";")
-	//
-	//	_, err = r.db.Exec(context.Background(), sqlBuilder.String(),
-	//		new.ID, new.RegNumber, new.PriceInfo.Price, new.PublishedAt, new.Href)
-	//
-	//	return err
+const upsertSupplierContactStmt = `
+INSERT INTO suppliers_contact (first_name, middle_name, last_name, email,phone, address) 
+values ($1,$2, $3, $4, $5, $6) ON CONFLICT DO NOTHING;
+`
 
-	return nil
+func (r *repo) UpsertSuppliers(new *processor.Suppliers, orderPrice float64) error {
+	sqlBuilder := strings.Builder{}
+	sqlBuilder.WriteString(`INSERT INTO suppliers
+	(ogrn, name, short_name, inn, kpp, registered_at, sold_amount) values `)
+
+	for i := range new.Supplier {
+		sqlBuilder.WriteString(formatSupplierForSuppliersTable(&new.Supplier[i], orderPrice))
+		if i != len(new.Supplier)-1 {
+			sqlBuilder.WriteString(", ")
+		}
+	}
+
+	sqlBuilder.WriteString(`ON CONFLICT (ogrn) DO NOTHING;`)
+	//UPDATE SET
+	//successfull_tenders = suppliers.successfull_tenders + 1,
+	//unsuccessfull_tenders = suppliers.unsuccessfull_tenders + 0;`
+
+	_, err := r.db.Exec(context.Background(), sqlBuilder.String())
+	if err != nil {
+		return err
+	}
+
+	sqlBuilder.Reset()
+
+	sqlBuilder.WriteString(`INSERT INTO supplier_contacts 
+	(supplier_id, first_name, middle_name, last_name, email,phone, address) values `)
+	for i := range new.Supplier {
+		info := &new.Supplier[i].LegalEntity.OtherInfo
+		sqlBuilder.WriteString(fmt.Sprintf("(%d, '%s', '%s', '%s', '%s', '%s', '%s')",
+			new.Supplier[i].LegalEntity.EGRULInfo.OGRN,
+			info.ContactInfo.FirstName, info.ContactInfo.MiddleName, info.ContactInfo.LastName,
+			info.ContactEmail, info.ContactPhone, new.Supplier[i].LegalEntity.EGRULInfo.Address))
+		if i != len(new.Supplier)-1 {
+			sqlBuilder.WriteString(", ")
+		}
+	}
+
+	sqlBuilder.WriteString("ON CONFLICT(id) DO NOTHING")
+
+	_, err = r.db.Exec(context.Background(), sqlBuilder.String())
+
+	return err
 }
 
 func generateParamNums(from, to int) string {
@@ -152,4 +163,14 @@ func generateParamNums(from, to int) string {
 	builder.WriteByte(')')
 
 	return builder.String()
+}
+
+func formatSupplierForSuppliersTable(sup *processor.Supplier, price float64) string {
+	egrulInfo := sup.LegalEntity.EGRULInfo
+
+	_ = "(ogrn, name, short_name, inn, kpp, registered_at, sold_amount, okpo, oktmo_name, oktmo_code) values `)"
+
+	return fmt.Sprintf("(%d, '%s', '%s', '%s', '%s', '%s', %f, '%s', '%s', '%s')",
+		egrulInfo.OGRN, egrulInfo.FullName, egrulInfo.ShortName, egrulInfo.INN, egrulInfo.KPP, egrulInfo.RegistrationDate, price,
+	)
 }
