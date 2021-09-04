@@ -217,10 +217,7 @@ psql -v ON_ERROR_STOP=1 -U "$PGUSER" -d "$PGDATABASE" <<-EOSQL
     $(cat ../constant_files/okei2.txt)
   ON CONFLICT DO NOTHING
   ;
-  INSERT INTO innovate_suppliers (inn, name, phone, email, description, reputation, successful_tenders, unsuccessful_tenders)
-  VALUES
-    $(cat ../constant_files/innovative.txt)
-  ON CONFLICT DO NOTHING
+  COPY innovate_suppliers(inn, name, phone, email, description, reputation, successful_tenders, unsuccessful_tenders) FROM '../constant_files/innovative.csv' DELIMITER ',' CSV;
   ;
   COMMIT;
 EOSQL
