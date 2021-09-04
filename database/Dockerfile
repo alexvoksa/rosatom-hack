@@ -10,4 +10,5 @@ ENV DB_USER="hackathon"
 ENV DB_PASS="hackathon"
 ENV DB_NAME="hackathon"
 COPY ./init/01-init.sh /docker-entrypoint-initdb.d/
+COPY constant_files/ /constant_files
 EXPOSE "5432"
