@@ -29,7 +29,9 @@
 
 <script>
 import FilterComponent from "@/components/pages/smart-filter/Filter.vue";
-import SupplierInfoCard from "@//components/pages/smart-filter/SupplierInfoCard.vue";
+import SupplierInfoCard from "@/components/pages/smart-filter/SupplierInfoCard.vue";
+
+import _ from "lodash";
 
 export default {
   name: "SmartFilterPage",
@@ -43,43 +45,51 @@ export default {
       filters: [
         {
           id: 0,
+          type: "",
           title: "",
           search: "",
-          type: "",
+          searchType: "",
         },
         {
           id: 1,
+          type: "",
           title: "",
           search: "",
-          type: "",
+          searchType: "",
         },
         {
           id: 2,
+          type: "",
           title: "",
           search: "",
-          type: "",
+          searchType: "",
         },
       ],
       filterableFields: [
         {
           label: "ОГРН",
           value: "ogrn",
+          searchType: "number",
         },
         {
           label: "Название",
           value: "name",
+          searchType: "string",
         },
         {
           label: "КПП",
           value: "kpp",
+          searchType: "number",
         },
         {
           label: "Выполненные тендеры",
           value: "successful_tenders",
+          searchType: "number",
         },
         {
           label: "Невыполненные тендеры",
           value: "unsuccessful_tenders",
+          searchType: "number",
         },
       ],
     };
@@ -101,13 +111,60 @@ export default {
         }));
       });
   },
+  watch: {
+    filters: {
+      deep: true,
+      handler() {
+
+        this.applyFilters();
+      },
+    },
+  },
   methods: {
+    applyFilters: _.debounce(function () {
+      let filterObjects = this.filters
+        .filter((f) => !!f.search && !!f.type && !!f.title)
+        .map((f) => {
+          let res = {};
+          res[f.title] = {};
+
+          let search;
+          if (f.type === "_like" || f.type === "_ilike") {
+            search = `"%${f.search}%"`;
+          } else {
+            search = f.search;
+          }
+
+          res[f.title][f.type] = search;
+
+          return res;
+        });
+      console.log("filterObjects", filterObjects)
+      console.log(require("@/gql/qSearchSuppliers.js").default(filterObjects));
+
+
+      // this.$http.hasura
+      //   .post("/", {
+      //     query: require("@/gql/qSearchSuppliers.js").default({
+      //       filterObjects,
+      //     }),
+      //   })
+      //   .then((resp) => {
+      //     if (resp.data.errors) {
+      //       return;
+      //     }
+      //     this.suppliers = this.applyFilters(resp.data.data.suppliers);
+      //   });
+
+
+    }, 300),
     addFilter() {
       this.filters.push({
         id: this.filters.length,
         type: "",
         title: "",
         search: "",
+        searchType: "",
       });
     },
     removeFilter(fid) {

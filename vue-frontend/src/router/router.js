@@ -10,8 +10,11 @@ Vue.use(VueRouter)
 
 const routes = [{
         path: '/',
-        name: 'login',
-        component: Login
+        redirect: { name: 'SmartFilter' }
+    },
+    {
+        path: "/login",
+        component: Login,
     },
     {
         path: '/about',
@@ -27,7 +30,7 @@ const routes = [{
 ]
 
 const router = new VueRouter({
-    mode: 'history',
+    mode: "history",
     base: process.env.BASE_URL,
     routes
 })
