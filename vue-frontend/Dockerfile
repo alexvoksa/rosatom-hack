@@ -5,9 +5,5 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 RUN npm run build
-
-# production stage
-FROM nginx:stable-alpine as production-stage
-COPY --from=build-stage /app/dist /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 8100
+CMD ["yarn","serve","--host", "0.0.0.0", "--no-open", "--port", "8100"]

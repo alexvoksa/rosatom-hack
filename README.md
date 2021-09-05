@@ -1,5 +1,5 @@
 # rosatom-hack
-Repository for hackathon
+Репозиторий для хакатона
 
 RUN
 
@@ -9,12 +9,6 @@ chmod +x pre_deploy.sh
 docker-compose up --build -d
 ```
 
-```shell
-chmod +x pre_deploy.sh
-./pre_deploy.sh
-docker-compose up --build -d
-```
-
-Database structure
+Структура бд
 
 ![](./docs/rosatom.svg)

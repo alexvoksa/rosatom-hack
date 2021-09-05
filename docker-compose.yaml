@@ -63,7 +63,7 @@ services:
     container_name: hackathon_frontend
     build: vue-frontend/
     ports:
-      - "8100:80"
+      - "8100:8100"
     links:
       - hackathon_db
       - hackathon_graphql-engine
