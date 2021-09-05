@@ -69,30 +69,37 @@ export default {
         {
           label: "Отсечение снизу",
           value: "_gte",
+          searchType: "number",
         },
         {
           label: "Отсечение сверху",
           value: "_lte",
+          searchType: "number",
         },
         {
           label: "Отсечение снизу (строгое)",
           value: "_gt",
+          searchType: "number",
         },
         {
           label: "Отсечение сверху (строгое)",
           value: "_lt",
+          searchType: "number",
         },
         {
           label: "равенство",
           value: "_eq",
+          searchType: "any",
         },
         {
           label: "вхождение",
           value: "_like",
+          searchType: "string",
         },
         {
           label: "вхождение (без регистра)",
           value: "_ilike",
+          searchType: "string",
         },
       ],
     };

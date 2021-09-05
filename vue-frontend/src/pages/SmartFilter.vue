@@ -45,43 +45,51 @@ export default {
       filters: [
         {
           id: 0,
+          type: "",
           title: "",
           search: "",
-          type: "",
+          searchType: "",
         },
         {
           id: 1,
+          type: "",
           title: "",
           search: "",
-          type: "",
+          searchType: "",
         },
         {
           id: 2,
+          type: "",
           title: "",
           search: "",
-          type: "",
+          searchType: "",
         },
       ],
       filterableFields: [
         {
           label: "ОГРН",
           value: "ogrn",
+          searchType: "number",
         },
         {
           label: "Название",
           value: "name",
+          searchType: "string",
         },
         {
           label: "КПП",
           value: "kpp",
+          searchType: "number",
         },
         {
           label: "Выполненные тендеры",
           value: "successful_tenders",
+          searchType: "number",
         },
         {
           label: "Невыполненные тендеры",
           value: "unsuccessful_tenders",
+          searchType: "number",
         },
       ],
     };
@@ -107,6 +115,7 @@ export default {
     filters: {
       deep: true,
       handler() {
+
         this.applyFilters();
       },
     },
@@ -130,8 +139,9 @@ export default {
 
           return res;
         });
-
+      console.log("filterObjects", filterObjects)
       console.log(require("@/gql/qSearchSuppliers.js").default(filterObjects));
+
 
       // this.$http.hasura
       //   .post("/", {
@@ -145,6 +155,8 @@ export default {
       //     }
       //     this.suppliers = this.applyFilters(resp.data.data.suppliers);
       //   });
+
+
     }, 300),
     addFilter() {
       this.filters.push({
@@ -152,6 +164,7 @@ export default {
         type: "",
         title: "",
         search: "",
+        searchType: "",
       });
     },
     removeFilter(fid) {
