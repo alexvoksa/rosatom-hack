@@ -18,7 +18,7 @@
       <el-select
         :value="type"
         filterable
-        placeholder="тип фильтрации..."
+        placeholder="тип фильтрации"
         @change="onFilterTypeChange"
       >
         <el-option
@@ -38,7 +38,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 
 export default {
   name: "FilterComponent",
@@ -69,31 +68,39 @@ export default {
       filterTypes: [
         {
           label: "Отсечение снизу",
-          value: "low_cut",
+          value: "_gte",
         },
         {
           label: "Отсечение сверху",
-          value: "high_cut",
+          value: "_lte",
+        },
+        {
+          label: "Отсечение снизу (строгое)",
+          value: "_gt",
+        },
+        {
+          label: "Отсечение сверху (строгое)",
+          value: "_lt",
         },
         {
           label: "равенство",
-          value: "eq",
+          value: "_eq",
         },
         {
           label: "вхождение",
-          value: "like",
+          value: "_like",
         },
         {
           label: "вхождение (без регистра)",
-          value: "ilike",
+          value: "_ilike",
         },
       ],
     };
   },
   methods: {
-    onInput: _.debounce(function (val) {
+    onInput(val) {
       this.$emit("update:search", val);
-    }),
+    },
     onFilterTypeChange(val) {
       this.$emit("update:type", val);
     },

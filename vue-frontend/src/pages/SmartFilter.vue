@@ -29,7 +29,9 @@
 
 <script>
 import FilterComponent from "@/components/pages/smart-filter/Filter.vue";
-import SupplierInfoCard from "@//components/pages/smart-filter/SupplierInfoCard.vue";
+import SupplierInfoCard from "@/components/pages/smart-filter/SupplierInfoCard.vue";
+
+import _ from "lodash";
 
 export default {
   name: "SmartFilterPage",
@@ -101,7 +103,49 @@ export default {
         }));
       });
   },
+  watch: {
+    filters: {
+      deep: true,
+      handler() {
+        this.applyFilters();
+      },
+    },
+  },
   methods: {
+    applyFilters: _.debounce(function () {
+      let filterObjects = this.filters
+        .filter((f) => !!f.search && !!f.type && !!f.title)
+        .map((f) => {
+          let res = {};
+          res[f.title] = {};
+
+          let search;
+          if (f.type === "_like" || f.type === "_ilike") {
+            search = `"%${f.search}%"`;
+          } else {
+            search = f.search;
+          }
+
+          res[f.title][f.type] = search;
+
+          return res;
+        });
+
+      console.log(require("@/gql/qSearchSuppliers.js").default(filterObjects));
+
+      // this.$http.hasura
+      //   .post("/", {
+      //     query: require("@/gql/qSearchSuppliers.js").default({
+      //       filterObjects,
+      //     }),
+      //   })
+      //   .then((resp) => {
+      //     if (resp.data.errors) {
+      //       return;
+      //     }
+      //     this.suppliers = this.applyFilters(resp.data.data.suppliers);
+      //   });
+    }, 300),
     addFilter() {
       this.filters.push({
         id: this.filters.length,
